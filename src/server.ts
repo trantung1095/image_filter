@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
@@ -30,7 +30,7 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
   //! END @TODO1
 
-  app.get("/filteredimage", async (req, res) => {
+  app.get("/filteredimage", async (req: Request, res: Response) => {
     let image_url: string = req.query.image_url;
     //Validate url
     const isValidUrl: any = image_url.match(
@@ -38,7 +38,7 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
     );
 
     if (isValidUrl == null)
-      return res.status(401).send(`Inavlid url! Try again with valid url`);
+      return res.status(401).send(`Invalid url! Try again with valid url`);
     else {
       //Process Image
       const filteredImage: string = await filterImageFromURL(image_url);
@@ -55,7 +55,7 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get("/", async (req, res) => {
+  app.get("/", async (req: Request, res: Response) => {
     res.send("try GET /filteredimage?image_url={{}}");
   });
 
